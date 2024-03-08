@@ -10,14 +10,25 @@
         <th scope="col">Description</th>
         <th scope="col">Price</th>
         <th scope="col">Stock</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor=" let product of products">
-        <th scope="row">{{product.id}}</th>
-        <td>{{product.description}}</td>
-        <td>{{product.price | currency}}</td>
-        <td>{{product.stock}}</td>
+      <tr *ngFor="let product of products">
+        <th scope="row">{{ product.id }}</th>
+        <td>{{ product.description }}</td>
+        <td>{{ product.price | currency }}</td>
+        <td>{{ product.stock }}</td>
+        <td class="text-center">
+          <div>
+            <button
+              (click)="editProduct(product.id)"
+              class="btn btn-warning btn-sm me-3"
+            >
+              Edit
+            </button>
+          </div>
+        </td>
       </tr>
     </tbody>
   </table>

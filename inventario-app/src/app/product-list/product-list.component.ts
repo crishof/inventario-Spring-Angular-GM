@@ -2,8 +2,8 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { Product } from '../product';
 import { CommonModule } from '@angular/common';
 import { ProductService } from '../product.service';
-import { Router } from 'express';
-import { RouterLink } from '@angular/router';
+
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-product-list',
@@ -14,7 +14,10 @@ import { RouterLink } from '@angular/router';
 })
 export class ProductListComponent implements OnInit {
   products: Product[];
-  constructor(private _productService: ProductService) {}
+  constructor(
+    private _productService: ProductService,
+    private _router: Router
+  ) {}
 
   ngOnInit(): void {
     this.getProducts();
@@ -24,5 +27,9 @@ export class ProductListComponent implements OnInit {
     this._productService.getProducts().subscribe((data: Product[]) => {
       this.products = data;
     });
+  }
+
+  editProduct(id: number) {
+    this._router.navigate(['edit-product', id]);
   }
 }

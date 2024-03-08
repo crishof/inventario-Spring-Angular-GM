@@ -19,4 +19,12 @@ export class ProductService {
   saveProduct(product: Product): Observable<Object> {
     return this._http.post<Object>(this._urlBase + '/save', product);
   }
+
+  findById(id: number) {
+    return this._http.get<Product>(`${this._urlBase}/findById/${id}`);
+  }
+
+  updateProduct(id: number, product: Product): Observable<Object> {
+    return this._http.put<Object>(`${this._urlBase}/update/${id}`, product);
+  }
 }
