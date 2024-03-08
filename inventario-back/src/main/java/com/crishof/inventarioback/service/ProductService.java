@@ -10,7 +10,7 @@ public interface ProductService {
 
     Product findById(Integer id);
 
-    void saveProduct(Product product);
+    Product saveProduct(Product product);
 
     void deleteProductById(Integer id);
 

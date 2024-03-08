@@ -7,12 +7,16 @@ import { Product } from './product';
   providedIn: 'root',
 })
 export class ProductService {
-  private _urlBase = 'http://localhost:8080/inventario-app/findAll';
+  private _urlBase = 'http://localhost:8080/inventario-app';
   private _http = inject(HttpClient);
 
   constructor(private clienteHttp: HttpClient) {}
 
   getProducts(): Observable<Product[]> {
-    return this._http.get<Product[]>(this._urlBase);
+    return this._http.get<Product[]>(this._urlBase + '/findAll');
+  }
+
+  saveProduct(product: Product): Observable<Object> {
+    return this._http.post<Object>(this._urlBase + '/save', product);
   }
 }
