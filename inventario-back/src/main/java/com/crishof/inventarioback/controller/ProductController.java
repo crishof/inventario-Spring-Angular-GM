@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("inventario-app")
@@ -45,12 +47,29 @@ public class ProductController {
     public ResponseEntity<Product> editProduct(@PathVariable("id") int id, @RequestBody Product productR) {
 
         Product product = productService.findById(id);
+        if (product == null) {
+            throw new NotFoundExeption("Product with id: " + id + " not found");
+        }
         product.setDescription(productR.getDescription());
         product.setPrice(productR.getPrice());
         product.setStock(productR.getStock());
 
         productService.saveProduct(product);
         return ResponseEntity.ok(product);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Map<String, Boolean>> delete(@PathVariable("id") int id) {
+
+        Product product = productService.findById(id);
+        if (product == null) {
+            throw new NotFoundExeption("Product with id: " + id + " not found");
+        }
+        productService.deleteProductById(id);
+
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("deleted", Boolean.TRUE);
+        return ResponseEntity.ok(response);
     }
 
 }
